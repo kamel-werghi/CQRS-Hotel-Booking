@@ -9,6 +9,14 @@ public class WebHotel {
     private String name;
     private List<WebRoom> rooms;
 
+    public WebHotel() {
+    }
+
+    public WebHotel(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
@@ -22,6 +30,9 @@ public class WebHotel {
     }
 
     public static WebHotel fromModel(Hotel hotel){
-        return null;
+        if(hotel == null){
+            return null;
+        }
+        return new WebHotel(hotel.getId(), hotel.getName());
     }
 }
