@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class BookingSearchRequestTest {
 
     @Test(expected = BadRequestException.class)
-    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenArrivalDateIsGraterThanDepartureDate(){
+    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenArrivalDateIsGraterThanDepartureDate() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(LocalDate.of(2021, Month.JANUARY, 15),
@@ -29,7 +29,7 @@ public class BookingSearchRequestTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenLatitudeIsEmpty(){
+    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenLatitudeIsEmpty() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(LocalDate.of(2021, Month.JANUARY, 10),
@@ -42,7 +42,7 @@ public class BookingSearchRequestTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenLongitudeIsEmpty(){
+    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenLongitudeIsEmpty() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(LocalDate.of(2021, Month.JANUARY, 10),
@@ -55,7 +55,7 @@ public class BookingSearchRequestTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenArrivalDateIsNull(){
+    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenArrivalDateIsNull() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(null,
@@ -68,7 +68,7 @@ public class BookingSearchRequestTest {
     }
 
     @Test(expected = BadRequestException.class)
-    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenDepartureDateIsNull(){
+    public void mapSearchRequestToDto_ShouldThrowsBadRequest_WhenDepartureDateIsNull() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(null,
@@ -81,7 +81,7 @@ public class BookingSearchRequestTest {
     }
 
     @Test
-    public void mapSearchRequestToDto_ShouldSucceed_WhenValidRequest(){
+    public void mapSearchRequestToDto_ShouldSucceed_WhenValidRequest() throws BadRequestException{
         // Given
         BookingSearchRequest bookingSearchRequest
                 = new BookingSearchRequest(LocalDate.of(2021, Month.JANUARY, 10),
@@ -92,9 +92,9 @@ public class BookingSearchRequestTest {
 
         // Then
         assertNotNull(bookingSearchData);
-        assertEquals(bookingSearchData.getLocation().getLatitude(), 12D);
-        assertEquals(bookingSearchData.getLocation().getLongitude(), 15D);
+        assertEquals(bookingSearchData.getLocation().getLatitude(), 12D, 0);
+        assertEquals(bookingSearchData.getLocation().getLongitude(), 15D, 0);
         assert(bookingSearchData.getArrivalDate()).equals(LocalDate.of(2021, Month.JANUARY, 10));
-        assert(bookingSearchData.getArrivalDate()).equals(LocalDate.of(2021, Month.JANUARY, 15));
+        assert(bookingSearchData.getDepartureDate()).equals(LocalDate.of(2021, Month.JANUARY, 15));
     }
 }
