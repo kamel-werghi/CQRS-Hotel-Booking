@@ -7,6 +7,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.time.LocalDate;
 import java.time.Month;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -69,6 +70,6 @@ public class BookingTest {
         boolean isConflicting = booking.conflictWith(requestedArrivalDate, requestedDepartureDate);
 
         // Then
-        assertTrue(isConflicting);
+        assertFalse(isConflicting);
     }
 }
