@@ -5,4 +5,13 @@ import java.time.LocalDate;
 public class Booking {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
+
+    public Booking(LocalDate arrivalDate, LocalDate departureDate) {
+        this.arrivalDate = arrivalDate;
+        this.departureDate = departureDate;
+    }
+
+    public boolean conflictWith(LocalDate arrivalDate, LocalDate departureDate){
+        return false;
+    }
 }
