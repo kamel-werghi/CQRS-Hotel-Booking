@@ -5,6 +5,7 @@ import com.kata.demo.core.api.web.query.model.WebHotel;
 import com.kata.demo.core.domain.model.Hotel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.MockedStatic;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -12,8 +13,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mockStatic;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebHotelMapperTest {
@@ -47,20 +49,17 @@ public class WebHotelMapperTest {
     @Test
     public void shouldReturnOnlyValidHotels_WhenInputContainsNullValues(){
         //Given
-        Hotel hotel = new Hotel();
-        Hotel hotel1 = null;
-        WebHotel webHotel = new WebHotel();
-        List<Hotel> hotels = Arrays.asList(hotel, hotel1);
-        when(WebHotel.fromModel(hotel)).thenReturn(webHotel);
-        when(WebHotel.fromModel(hotel1)).thenReturn(null);
+        Hotel hotel = null;
+        List<Hotel> hotels = Arrays.asList(hotel);
+        MockedStatic<WebHotel> webHotelMock = mockStatic(WebHotel.class);
+        webHotelMock.when(() -> WebHotel.fromModel(hotel)).thenReturn(null);
 
         // When
         List<WebHotel> webHotels = WebHotelMapper.mapHotels(hotels);
 
         // Then
         assertNotNull(webHotels);
-        assertEquals(webHotels.size(), 1);
-        assertEquals(webHotels.get(0), webHotel);
+        assertEquals(webHotels.size(), 0);
     }
 
     @Test
@@ -69,7 +68,8 @@ public class WebHotelMapperTest {
         Hotel hotel = new Hotel();
         WebHotel webHotel = new WebHotel();
         List<Hotel> hotels = Collections.singletonList(hotel);
-        when(WebHotel.fromModel(hotel)).thenReturn(webHotel);
+        MockedStatic<WebHotel> webHotelMock = mockStatic(WebHotel.class);
+        webHotelMock.when(() -> WebHotel.fromModel(hotel)).thenReturn(webHotel);
 
         // When
         List<WebHotel> webHotels = WebHotelMapper.mapHotels(hotels);
