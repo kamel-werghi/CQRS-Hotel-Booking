@@ -8,4 +8,17 @@ public class BookingSearchData {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
     private Coordinates location;
+
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public Coordinates getLocation() {
+        return location;
+    }
 }

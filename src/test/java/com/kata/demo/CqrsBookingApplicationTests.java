@@ -9,5 +9,4 @@ class CqrsBookingApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

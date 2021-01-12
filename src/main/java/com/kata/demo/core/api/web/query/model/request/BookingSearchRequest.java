@@ -10,6 +10,13 @@ public class BookingSearchRequest {
     private double latitude;
     private double longitude;
 
+    public BookingSearchRequest(LocalDate arrival, LocalDate departure, double latitude, double longitude) {
+        this.arrival = arrival;
+        this.departure = departure;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public BookingSearchData toDto(){
         return null;
     }
