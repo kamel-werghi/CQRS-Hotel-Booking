@@ -26,7 +26,7 @@ public class HotelSearchResource {
             return ResponseEntity.ok(
                     WebHotelMapper.mapHotels(hotelSearchRequester.getAvailableRooms(bookingSearchRequest.toDto())));
         }catch (BadRequestException e){
-            return null;
+            return ResponseEntity.badRequest().build();
         }
     }
 }
