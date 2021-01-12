@@ -9,6 +9,11 @@ public class BookingSearchData {
     private LocalDate departureDate;
     private Coordinates location;
 
+    public BookingSearchData(LocalDate arrivalDate, LocalDate departureDate, Coordinates location) {
+        this.arrivalDate = arrivalDate;
+        this.departureDate = departureDate;
+        this.location = location;
+    }
 
     public LocalDate getArrivalDate() {
         return arrivalDate;
