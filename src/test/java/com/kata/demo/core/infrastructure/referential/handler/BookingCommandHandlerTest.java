@@ -1,25 +1,21 @@
 package com.kata.demo.core.infrastructure.referential.handler;
 
+import com.kata.demo.common.exception.RoomNotFoundException;
+import com.kata.demo.common.exception.VersionMismatchException;
 import com.kata.demo.core.domain.coreapi.command.BookHotelRoomCommand;
 import com.kata.demo.core.domain.coreapi.event.HotelRoomBookedEvent;
 import com.kata.demo.core.domain.coreapi.event.RoomNotFoundEvent;
 import com.kata.demo.core.domain.coreapi.event.RoomVersionMismatchEvent;
 import com.kata.demo.core.domain.dto.BookingData;
 import com.kata.demo.core.domain.model.Booking;
+import com.kata.demo.core.domain.model.Room;
 import com.kata.demo.core.domain.port.infrastructure.EventGateway;
-import com.kata.demo.core.infrastructure.referential.model.MSBooking;
-import com.kata.demo.core.infrastructure.referential.model.MSRoom;
-import com.kata.demo.core.infrastructure.referential.repository.BookingRepository;
-import com.kata.demo.core.infrastructure.referential.repository.RoomRepository;
+import com.kata.demo.core.infrastructure.referential.adapter.RoomAdapter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -27,10 +23,7 @@ import static org.mockito.Mockito.*;
 public class BookingCommandHandlerTest {
 
     @Mock
-    private RoomRepository roomRepository;
-
-    @Mock
-    private BookingRepository bookingRepository;
+    private RoomAdapter roomAdapter;
 
     @Mock
     private EventGateway eventGateway;
@@ -39,10 +32,13 @@ public class BookingCommandHandlerTest {
     private BookingCommandHandler bookingCommandHandler;
 
     @Test
-    public void shouldSendRoomNotFoundEvent_WhenRoomNotFound(){
+    public void shouldSendRoomNotFoundEvent_WhenRoomNotFound()
+            throws RoomNotFoundException, VersionMismatchException {
         // Given
-        when(roomRepository.findById("101")).thenReturn(Optional.empty());
-        BookHotelRoomCommand command = new BookHotelRoomCommand(new Booking(new BookingData()));
+        BookingData bookingData = new BookingData();
+        Booking booking = new Booking(bookingData);
+        BookHotelRoomCommand command = new BookHotelRoomCommand(booking);
+        doThrow(RoomNotFoundException.class).when(roomAdapter).addBooking(command.booking);
         doNothing().when(eventGateway).publish(any(RoomNotFoundEvent.class));
 
         // When
@@ -53,13 +49,13 @@ public class BookingCommandHandlerTest {
     }
 
     @Test
-    public void shouldSendRoomVersionMismatchEvent_WhenRoomVersionIsDifferentThanTargetVersion(){
+    public void shouldSendRoomVersionMismatchEvent_WhenRoomVersionIsDifferentThanTargetVersion()
+            throws RoomNotFoundException, VersionMismatchException {
         // Given
-        Long targetVersion = 1L;
-        Long actualVersion = 2L;
-        String roomId = "101";
-        BookHotelRoomCommand command = BookHotelRoomCommand.create(new BookingData(roomId, targetVersion));
-        when(roomRepository.findById(roomId)).thenReturn(Optional.of(new MSRoom(actualVersion)));
+        BookingData bookingData = new BookingData();
+        Booking booking = new Booking(bookingData);
+        BookHotelRoomCommand command = BookHotelRoomCommand.create(bookingData);
+        doThrow(VersionMismatchException.class).when(roomAdapter).addBooking(command.booking);
         doNothing().when(eventGateway).publish(any(RoomVersionMismatchEvent.class));
 
         // When
@@ -70,24 +66,15 @@ public class BookingCommandHandlerTest {
     }
 
     @Test
-    public void shouldSendRoomBookedEvent_WhenBookingISValid(){
-        Long targetVersion = 1L;
-        Long actualVersion = 1L;
-        String roomId = "101";
-
-        MSRoom room = new MSRoom(roomId, "room101", new ArrayList<>(), actualVersion);
-        when(roomRepository.findById(roomId)).thenReturn(Optional.of(room));
-
-        BookHotelRoomCommand command = BookHotelRoomCommand.create(new BookingData(roomId, targetVersion));
-        MSBooking msBookingToSave = new MSBooking();
-        MSBooking savedMSBooking = new MSBooking("1");
-        MockedStatic<MSBooking> msBookingMockedStatic = mockStatic(MSBooking.class);
-        msBookingMockedStatic.when(() -> MSBooking.fromModel(command.booking)).thenReturn(msBookingToSave);
-        when(bookingRepository.save(msBookingToSave)).thenReturn(savedMSBooking);
-
-        when(roomRepository.save(room)).thenReturn(room);
+    public void shouldSendRoomBookedEvent_WhenBookingISValid()
+            throws RoomNotFoundException, VersionMismatchException {
+        // Given
+        BookingData bookingData = new BookingData();
+        Booking booking = new Booking(bookingData);
+        BookHotelRoomCommand command = BookHotelRoomCommand.create(bookingData);
+        Room room = new Room();
+        when(roomAdapter.addBooking(command.booking)).thenReturn(room);
         doNothing().when(eventGateway).publish(any(HotelRoomBookedEvent.class));
-
 
         // When
         bookingCommandHandler.handle(command);

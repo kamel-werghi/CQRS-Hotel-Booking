@@ -32,6 +32,10 @@ public class Booking {
         return this.arrivalDate.isBefore(departureDate) && this.departureDate.isAfter(arrivalDate);
     }
 
+    public String getHotelId() {
+        return hotelId;
+    }
+
     public String getRoomId() {
         return roomId;
     }
