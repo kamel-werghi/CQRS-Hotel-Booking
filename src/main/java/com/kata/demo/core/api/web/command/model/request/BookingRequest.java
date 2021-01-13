@@ -24,6 +24,13 @@ public class BookingRequest {
     }
 
     public BookingData toModel() throws BadRequestException {
-        return null;
+        if(hotelId == null || roomId == null || arrivalDate == null
+                || departureDate == null || targetVersion == null){
+            throw new BadRequestException();
+        }
+        if(arrivalDate.isAfter(departureDate) || arrivalDate.isEqual(departureDate)){
+            throw new BadRequestException();
+        }
+        return new BookingData(hotelId, roomId, arrivalDate, departureDate, targetVersion);
     }
 }

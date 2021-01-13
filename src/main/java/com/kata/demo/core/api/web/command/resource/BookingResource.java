@@ -22,7 +22,7 @@ public class BookingResource {
             bookingCommander.book(bookingRequest.toModel());
             return ResponseEntity.ok().build();
         }catch (BadRequestException exception){
-            return null;
+            return ResponseEntity.badRequest().build();
         }
     }
 }
