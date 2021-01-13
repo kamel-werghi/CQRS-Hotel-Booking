@@ -11,6 +11,10 @@ public class Room {
     public Room() {
     }
 
+    public Room(String name) {
+        this.name = name;
+    }
+
     public Room(List<Booking> bookings) {
         this.bookings = bookings;
     }

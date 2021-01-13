@@ -22,6 +22,8 @@ public class Hotel {
         this.rooms = rooms;
     }
 
+
+
     public void filterAvailableRooms(LocalDate arrivalDate, LocalDate departureDate){
         rooms = rooms.stream()
                 .filter(room -> room.isRoomAvailable(arrivalDate, departureDate))
