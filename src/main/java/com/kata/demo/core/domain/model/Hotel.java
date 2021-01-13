@@ -2,6 +2,7 @@ package com.kata.demo.core.domain.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Hotel {
     private String id;
@@ -22,6 +23,9 @@ public class Hotel {
     }
 
     public void filterAvailableRooms(LocalDate arrivalDate, LocalDate departureDate){
+        rooms = rooms.stream()
+                .filter(room -> room.isRoomAvailable(arrivalDate, departureDate))
+                .collect(Collectors.toList());
     }
 
     public String getId() {
