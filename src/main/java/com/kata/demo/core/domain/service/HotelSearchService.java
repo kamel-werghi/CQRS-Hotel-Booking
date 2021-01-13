@@ -7,6 +7,7 @@ import com.kata.demo.core.domain.port.infrastructure.HotelDataGateway;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class HotelSearchService implements HotelSearchRequester {
@@ -18,6 +19,12 @@ public class HotelSearchService implements HotelSearchRequester {
 
     @Override
     public List<Hotel> getAvailableRooms(BookingSearchData bookingSearchData) {
-        return null;
+        return hotelDataGateway.
+                getHotelsWithin(bookingSearchData.getLocation())
+                .stream()
+                .peek(hotel -> hotel.filterAvailableRooms(bookingSearchData.getArrivalDate(),
+                        bookingSearchData.getDepartureDate()))
+                .filter(hotel -> !hotel.getRooms().isEmpty())
+                .collect(Collectors.toList());
     }
 }
