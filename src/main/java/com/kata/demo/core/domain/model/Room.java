@@ -8,6 +8,9 @@ public class Room {
     private List<Booking> bookings;
     private Long version;
 
+    public Room() {
+    }
+
     public Room(List<Booking> bookings) {
         this.bookings = bookings;
     }
