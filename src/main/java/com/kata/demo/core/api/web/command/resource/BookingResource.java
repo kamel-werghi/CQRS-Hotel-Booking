@@ -17,5 +17,7 @@ public class BookingResource {
 
     @PostMapping
     public ResponseEntity book(@RequestBody BookingRequest bookingRequest){
+        bookingCommander.book(bookingRequest.toModel());
+        return ResponseEntity.ok().build();
     }
 }
