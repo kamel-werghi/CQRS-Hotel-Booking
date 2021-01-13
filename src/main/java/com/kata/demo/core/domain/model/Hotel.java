@@ -10,7 +10,15 @@ public class Hotel {
     private Coordinates location;
     private List<Room> rooms;
 
+
     public Hotel() {
+    }
+
+    public Hotel(String id, String name, Coordinates location, List<Room> rooms) {
+        this.id = id;
+        this.name = name;
+        this.location = location;
+        this.rooms = rooms;
     }
 
     public Hotel(String id, String name) {

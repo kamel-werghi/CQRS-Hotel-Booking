@@ -39,8 +39,8 @@ public class HotelAdapterTest {
         MGHotel mgHotel = mock(MGHotel.class);
         Hotel hotel = new Hotel();
         when(mgHotel.toModel()).thenReturn(hotel);
-        when(esHotelRepository.searchWithin(any(), any(), any())).thenReturn(Arrays.asList("2"));
-        when(mgHotelRepository.findAllById(Arrays.asList("2"))).thenReturn(Collections.singletonList(mgHotel));
+        when(esHotelRepository.searchWithin(any(), any(), any())).thenReturn(Collections.singletonList("2"));
+        when(mgHotelRepository.findAllById(Collections.singletonList("2"))).thenReturn(Collections.singletonList(mgHotel));
 
         // When
         List<Hotel> hotels = hotelAdapter.getHotelsWithin(location);

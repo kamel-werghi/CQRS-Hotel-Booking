@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Document
 public class MGHotel {
