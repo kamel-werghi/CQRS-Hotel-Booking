@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Document
@@ -32,7 +33,13 @@ public class MGHotel {
     }
 
     public void addBooking(String roomId, Long roomVersion, Booking booking) throws RoomNotFoundException {
-
+        var mgRoom = this.rooms
+                .stream()
+                .filter(room -> room.getId().equals(roomId))
+                .findFirst()
+                .orElseThrow(RoomNotFoundException::new);
+        mgRoom.getBookings().add(MGBooking.fromModel(booking));
+        mgRoom.setVersion(roomVersion);
     }
 
     public Hotel toModel() {

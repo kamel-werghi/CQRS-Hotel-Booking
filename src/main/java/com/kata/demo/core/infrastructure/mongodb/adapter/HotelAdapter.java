@@ -14,7 +14,6 @@ import com.kata.demo.core.infrastructure.mongodb.repository.MGHotelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,13 +39,9 @@ public class HotelAdapter implements HotelDataGateway {
     }
 
     public Hotel addBooking(String hotelId, Booking booking) throws HotelNotFoundException, RoomNotFoundException {
-        Optional<MGHotel> mgHotelOptional = mgHotelRepository.findById(hotelId);
-        if(mgHotelOptional.isPresent()){
-            MGHotel mgHotel = mgHotelOptional.get();
-            mgHotel.addBooking(booking.getRoomId(), booking.getTargetVersion(), booking);
-            return mgHotelRepository.save(mgHotel).toModel();
-        }else{
-            throw new HotelNotFoundException();
-        }
+        var mgHotel = mgHotelRepository.findById(hotelId)
+                .orElseThrow(HotelNotFoundException::new);
+        mgHotel.addBooking(booking.getRoomId(), booking.getTargetVersion(), booking);
+        return mgHotelRepository.save(mgHotel).toModel();
     }
 }
