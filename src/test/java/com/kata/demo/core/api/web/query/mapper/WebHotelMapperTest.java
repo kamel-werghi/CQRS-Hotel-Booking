@@ -1,6 +1,5 @@
-package com.kata.demo.core.api.web.mapper;
+package com.kata.demo.core.api.web.query.mapper;
 
-import com.kata.demo.core.api.web.query.mapper.WebHotelMapper;
 import com.kata.demo.core.api.web.query.model.WebHotel;
 import com.kata.demo.core.domain.model.Hotel;
 import org.junit.Test;
@@ -19,6 +18,8 @@ import static org.mockito.Mockito.mockStatic;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebHotelMapperTest {
+
+    private static MockedStatic<WebHotel> webHotelMock = mockStatic(WebHotel.class);
 
     @Test
     public void shouldReturnsEmptyList_WhenInputListIsNull(){
@@ -51,7 +52,7 @@ public class WebHotelMapperTest {
         //Given
         Hotel hotel = null;
         List<Hotel> hotels = Arrays.asList(hotel);
-        MockedStatic<WebHotel> webHotelMock = mockStatic(WebHotel.class);
+
         webHotelMock.when(() -> WebHotel.fromModel(hotel)).thenReturn(null);
 
         // When
@@ -68,7 +69,6 @@ public class WebHotelMapperTest {
         Hotel hotel = new Hotel();
         WebHotel webHotel = new WebHotel();
         List<Hotel> hotels = Collections.singletonList(hotel);
-        MockedStatic<WebHotel> webHotelMock = mockStatic(WebHotel.class);
         webHotelMock.when(() -> WebHotel.fromModel(hotel)).thenReturn(webHotel);
 
         // When

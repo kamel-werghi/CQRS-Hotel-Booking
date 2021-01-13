@@ -1,4 +1,4 @@
-package com.kata.demo.core.api.web.resource;
+package com.kata.demo.core.api.web.query.resource;
 
 import com.kata.demo.common.exception.BadRequestException;
 import com.kata.demo.core.api.web.query.model.WebHotel;

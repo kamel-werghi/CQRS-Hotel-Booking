@@ -1,4 +1,4 @@
-package com.kata.demo.core.api.web.model.request;
+package com.kata.demo.core.api.web.query.model.request;
 
 import com.kata.demo.common.exception.BadRequestException;
 import com.kata.demo.core.api.web.query.model.request.BookingSearchRequest;

@@ -1,4 +1,4 @@
-package com.kata.demo.core.api.web.model;
+package com.kata.demo.core.api.web.query.model;
 
 import com.kata.demo.core.api.web.query.model.WebHotel;
 import com.kata.demo.core.domain.model.Hotel;
