@@ -30,8 +30,7 @@ public class BookingResourceTest {
         // Given
         BookingRequest bookingRequest = mock(BookingRequest.class);
         BookingData bookingData = new BookingData();
-        when(bookingRequest.toModel()).thenReturn(bookingData);
-        doThrow(BadRequestException.class).when(bookingCommander).book(bookingData);
+        doThrow(BadRequestException.class).when(bookingRequest).toModel();
 
         // When
         ResponseEntity response = resource.book(bookingRequest);
