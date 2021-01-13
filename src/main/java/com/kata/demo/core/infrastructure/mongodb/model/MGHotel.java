@@ -1,6 +1,7 @@
 package com.kata.demo.core.infrastructure.mongodb.model;
 
 
+import com.kata.demo.common.exception.RoomNotFoundException;
 import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Coordinates;
 import com.kata.demo.core.domain.model.Hotel;
@@ -19,6 +20,10 @@ public class MGHotel {
     private Coordinates coordinates;
     private List<MGRoom> rooms;
 
+    public MGHotel(List<MGRoom> rooms) {
+        this.rooms = rooms;
+    }
+
     public MGHotel(String id, String name, Coordinates coordinates) {
         this.id = id;
         this.name = name;
@@ -26,11 +31,11 @@ public class MGHotel {
         this.rooms = new ArrayList<>();
     }
 
-    public void addBooking(String roomId, Long roomVersion, Booking booking) {
+    public void addBooking(String roomId, Long roomVersion, Booking booking) throws RoomNotFoundException {
 
     }
 
-    public Hotel toModel(){
+    public Hotel toModel() {
         return new Hotel(id, name, coordinates,
                 rooms.stream().map(MGRoom::toModel).collect(Collectors.toList()));
     }

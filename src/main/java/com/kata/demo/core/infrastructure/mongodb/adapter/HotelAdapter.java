@@ -1,6 +1,7 @@
 package com.kata.demo.core.infrastructure.mongodb.adapter;
 
 import com.kata.demo.common.exception.HotelNotFoundException;
+import com.kata.demo.common.exception.RoomNotFoundException;
 import com.kata.demo.common.util.GeoLocationUtil;
 import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Coordinates;
@@ -13,6 +14,7 @@ import com.kata.demo.core.infrastructure.mongodb.repository.MGHotelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,7 +39,14 @@ public class HotelAdapter implements HotelDataGateway {
                 .map(MGHotel::toModel).collect(Collectors.toList());
     }
 
-    public Hotel addBooking(String hotelId, Booking booking) throws HotelNotFoundException{
-        return null;
+    public Hotel addBooking(String hotelId, Booking booking) throws HotelNotFoundException, RoomNotFoundException {
+        Optional<MGHotel> mgHotelOptional = mgHotelRepository.findById(hotelId);
+        if(mgHotelOptional.isPresent()){
+            MGHotel mgHotel = mgHotelOptional.get();
+            mgHotel.addBooking(booking.getRoomId(), booking.getTargetVersion(), booking);
+            return mgHotelRepository.save(mgHotel).toModel();
+        }else{
+            throw new HotelNotFoundException();
+        }
     }
 }

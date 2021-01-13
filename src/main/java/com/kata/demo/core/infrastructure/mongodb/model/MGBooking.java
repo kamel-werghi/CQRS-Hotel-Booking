@@ -9,6 +9,9 @@ public class MGBooking {
     private LocalDate arrivalDate;
     private LocalDate departureDate;
 
+    public MGBooking() {
+    }
+
     public MGBooking(LocalDate arrivalDate, LocalDate departureDate) {
         this.arrivalDate = arrivalDate;
         this.departureDate = departureDate;

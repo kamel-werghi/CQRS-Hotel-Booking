@@ -1,6 +1,7 @@
 package com.kata.demo.core.infrastructure.mongodb.adapter;
 
 import com.kata.demo.common.exception.HotelNotFoundException;
+import com.kata.demo.common.exception.RoomNotFoundException;
 import com.kata.demo.core.domain.dto.BookingData;
 import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Coordinates;
@@ -55,7 +56,7 @@ public class HotelAdapterTest {
     }
 
     @Test(expected = HotelNotFoundException.class)
-    public void shouldThrownHotelNotFoundException_WhenHotelNotFound() throws HotelNotFoundException{
+    public void shouldThrownHotelNotFoundException_WhenHotelNotFound() throws HotelNotFoundException, RoomNotFoundException {
         // Given
         String hotelId = "1";
         Booking booking = new Booking(new BookingData());
@@ -69,7 +70,7 @@ public class HotelAdapterTest {
     }
 
     @Test
-    public void shouldUpdateHotelWithNewBooking() throws HotelNotFoundException{
+    public void shouldUpdateHotelWithNewBooking() throws HotelNotFoundException, RoomNotFoundException{
         // Given
         String hotelId = "1";
         String roomId = "101";
