@@ -4,10 +4,13 @@ import com.kata.demo.common.exception.RoomNotFoundException;
 import com.kata.demo.common.exception.VersionMismatchException;
 import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Room;
+import com.kata.demo.core.infrastructure.referential.model.MSBooking;
+import com.kata.demo.core.infrastructure.referential.model.MSRoom;
 import com.kata.demo.core.infrastructure.referential.repository.BookingRepository;
 import com.kata.demo.core.infrastructure.referential.repository.RoomRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
 
 @Component
 public class RoomAdapter {
@@ -20,6 +23,19 @@ public class RoomAdapter {
     }
 
     public Room addBooking(Booking booking) throws VersionMismatchException, RoomNotFoundException {
-        return null;
+        Optional<MSRoom> room = roomRepository.findById(booking.getRoomId());
+        if (room.isPresent()) {
+            MSRoom msRoom = room.get();
+            if (msRoom.getVersion().equals(booking.getTargetVersion())) {
+                MSBooking msBooking = bookingRepository.save(MSBooking.fromModel(booking));
+                msRoom.getBookings().add(msBooking);
+                msRoom.updateVersion();
+                return roomRepository.save(msRoom).toModel();
+            } else {
+                throw new VersionMismatchException();
+            }
+        } else {
+            throw new RoomNotFoundException();
+        }
     }
 }
