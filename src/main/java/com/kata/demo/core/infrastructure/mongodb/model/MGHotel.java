@@ -26,7 +26,8 @@ public class MGHotel {
     }
 
     public Hotel toModel(){
-        return null;
+        return new Hotel(id, name, coordinates,
+                rooms.stream().map(MGRoom::toModel).collect(Collectors.toList()));
     }
 
     public String getId() {

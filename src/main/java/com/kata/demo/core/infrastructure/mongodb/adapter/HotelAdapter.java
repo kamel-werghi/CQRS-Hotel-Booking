@@ -5,6 +5,7 @@ import com.kata.demo.core.domain.model.Coordinates;
 import com.kata.demo.core.domain.model.Hotel;
 import com.kata.demo.core.domain.port.infrastructure.HotelDataGateway;
 import com.kata.demo.core.infrastructure.elasticsearch.repository.ESHotelRepository;
+import com.kata.demo.core.infrastructure.elasticsearch.repository.QueryGenerator;
 import com.kata.demo.core.infrastructure.mongodb.model.MGHotel;
 import com.kata.demo.core.infrastructure.mongodb.repository.MGHotelRepository;
 import org.springframework.stereotype.Service;
@@ -26,8 +27,10 @@ public class HotelAdapter implements HotelDataGateway {
 
     @Override
     public List<Hotel> getHotelsWithin(Coordinates location) {
-        List<String> hotelsWithin = esHotelRepository.searchWithin(GeoLocationUtil.geoPointFromCoordinates(location)
-                , DISTANCE, UNIT);
+        List<String> hotelsWithin
+                = esHotelRepository.searchWithin(
+                        QueryGenerator.generateHotelSearchQuery(
+                                GeoLocationUtil.geoPointFromCoordinates(location), DISTANCE, UNIT));
         return mgHotelRepository.findAllById(hotelsWithin).stream()
                 .map(MGHotel::toModel).collect(Collectors.toList());
     }

@@ -16,6 +16,9 @@ public class ESHotel {
     private String name;
     private GeoPoint location;
 
+    public ESHotel() {
+    }
+
     public ESHotel(String id, String name, GeoPoint location) {
         this.id = id;
         this.name = name;

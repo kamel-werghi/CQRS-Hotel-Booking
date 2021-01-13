@@ -1,7 +1,7 @@
 package com.kata.demo.core.infrastructure.elasticsearch.repository;
 
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.geo.GeoPoint;
+import org.springframework.data.elasticsearch.core.query.Query;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class ESHotelRepositoryCustomImpl implements ESHotelRepositoryCustom {
     }
 
     @Override
-    public List<String> searchWithin(GeoPoint geoPoint, Double distance, String unit) {
-       return null;
+    public List<String> searchWithin(Query query) {
+        return null;
     }
 }

@@ -10,7 +10,6 @@ public class Hotel {
     private Coordinates location;
     private List<Room> rooms;
 
-
     public Hotel() {
     }
 

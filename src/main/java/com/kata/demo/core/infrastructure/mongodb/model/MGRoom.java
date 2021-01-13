@@ -12,7 +12,7 @@ public class MGRoom {
     private Long version;
 
     public Room toModel(){
-        return null;
+        return new Room(name);
     }
 
     public String getId() {
