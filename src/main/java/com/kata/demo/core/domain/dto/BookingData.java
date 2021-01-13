@@ -19,4 +19,24 @@ public class BookingData {
         this.departureDate = departureDate;
         this.targetVersion = targetVersion;
     }
+
+    public String getHotelId() {
+        return hotelId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public LocalDate getDepartureDate() {
+        return departureDate;
+    }
+
+    public Long getTargetVersion() {
+        return targetVersion;
+    }
 }

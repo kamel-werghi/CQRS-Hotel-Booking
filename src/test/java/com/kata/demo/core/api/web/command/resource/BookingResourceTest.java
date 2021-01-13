@@ -1,5 +1,6 @@
 package com.kata.demo.core.api.web.command.resource;
 
+import com.kata.demo.common.exception.BadRequestException;
 import com.kata.demo.core.api.web.command.model.request.BookingRequest;
 import com.kata.demo.core.domain.dto.BookingData;
 import com.kata.demo.core.domain.port.api.BookingCommander;
@@ -25,7 +26,24 @@ public class BookingResourceTest {
     private BookingCommander bookingCommander;
 
     @Test
-    public void shouldCallBookingCommanderAndReturnsOkResponseEntity(){
+    public void shouldReturnBadRequest_WhenInputValidationFail() throws BadRequestException{
+        // Given
+        BookingRequest bookingRequest = mock(BookingRequest.class);
+        BookingData bookingData = new BookingData();
+        when(bookingRequest.toModel()).thenReturn(bookingData);
+        doThrow(BadRequestException.class).when(bookingCommander).book(bookingData);
+
+        // When
+        ResponseEntity response = resource.book(bookingRequest);
+
+        // Then
+        assertNotNull(response);
+        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
+        verify(bookingCommander, times(0)).book(bookingData);
+    }
+
+    @Test
+    public void shouldCallBookingCommanderAndReturnsOkResponseEntity() throws BadRequestException {
         // Given
         BookingRequest bookingRequest = mock(BookingRequest.class);
         BookingData bookingData = new BookingData();

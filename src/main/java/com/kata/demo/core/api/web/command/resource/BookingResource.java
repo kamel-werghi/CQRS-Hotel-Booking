@@ -1,5 +1,6 @@
 package com.kata.demo.core.api.web.command.resource;
 
+import com.kata.demo.common.exception.BadRequestException;
 import com.kata.demo.core.api.web.command.model.request.BookingRequest;
 import com.kata.demo.core.domain.port.api.BookingCommander;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,11 @@ public class BookingResource {
 
     @PostMapping
     public ResponseEntity book(@RequestBody BookingRequest bookingRequest){
-        bookingCommander.book(bookingRequest.toModel());
-        return ResponseEntity.ok().build();
+        try {
+            bookingCommander.book(bookingRequest.toModel());
+            return ResponseEntity.ok().build();
+        }catch (BadRequestException exception){
+            return null;
+        }
     }
 }
