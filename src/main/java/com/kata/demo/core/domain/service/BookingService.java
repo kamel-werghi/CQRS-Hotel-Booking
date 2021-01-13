@@ -1,5 +1,6 @@
 package com.kata.demo.core.domain.service;
 
+import com.kata.demo.core.domain.coreapi.command.BookHotelRoomCommand;
 import com.kata.demo.core.domain.dto.BookingData;
 import com.kata.demo.core.domain.port.api.BookingCommander;
 import com.kata.demo.core.domain.port.infrastructure.CommandGateway;
@@ -15,5 +16,6 @@ public class BookingService implements BookingCommander {
 
     @Override
     public void book(BookingData bookingData) {
+        commandGateway.send(BookHotelRoomCommand.create(bookingData));
     }
 }
