@@ -31,4 +31,12 @@ public class Booking {
     public boolean conflictWith(LocalDate arrivalDate, LocalDate departureDate){
         return this.arrivalDate.isBefore(departureDate) && this.departureDate.isAfter(arrivalDate);
     }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public Long getTargetVersion() {
+        return targetVersion;
+    }
 }

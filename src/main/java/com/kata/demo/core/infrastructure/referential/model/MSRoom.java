@@ -19,4 +19,12 @@ public class MSRoom {
 
     public MSRoom() {
     }
+
+    public MSRoom(Long version) {
+        this.version = version;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }

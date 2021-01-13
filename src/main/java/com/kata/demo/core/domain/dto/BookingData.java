@@ -12,6 +12,11 @@ public class BookingData {
     public BookingData() {
     }
 
+    public BookingData(String roomId, Long targetVersion) {
+        this.roomId = roomId;
+        this.targetVersion = targetVersion;
+    }
+
     public BookingData(String hotelId, String roomId, LocalDate arrivalDate, LocalDate departureDate, Long targetVersion) {
         this.hotelId = hotelId;
         this.roomId = roomId;
