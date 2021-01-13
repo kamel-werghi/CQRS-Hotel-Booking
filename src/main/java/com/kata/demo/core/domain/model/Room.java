@@ -12,11 +12,7 @@ public class Room {
         this.bookings = bookings;
     }
 
-    public List<Booking> getBookings() {
-        return bookings;
-    }
-
     public boolean isRoomAvailable(LocalDate arrivalDate, LocalDate departureDate){
-        return false;
+        return bookings.stream().noneMatch(booking -> booking.conflictWith(arrivalDate, departureDate));
     }
 }
