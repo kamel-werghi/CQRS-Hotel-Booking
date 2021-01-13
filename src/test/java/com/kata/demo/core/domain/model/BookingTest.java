@@ -59,12 +59,27 @@ public class BookingTest {
     }
 
     @Test
-    public void shouldReturnFalse_WhenBookingPeriodDoesNotIntersectWithRequestedPeriod(){
+    public void shouldReturnFalse_WhenBookingPeriodIsBeforeRequestedPeriod(){
         // Given
         LocalDate requestedArrivalDate = LocalDate.of(2021, Month.JANUARY, 15);
         LocalDate requestedDepartureDate = LocalDate.of(2021, Month.JANUARY, 20);
         Booking booking = new Booking(LocalDate.of(2021, Month.JANUARY, 5),
                 LocalDate.of(2021, Month.JANUARY, 10));
+
+        // When
+        boolean isConflicting = booking.conflictWith(requestedArrivalDate, requestedDepartureDate);
+
+        // Then
+        assertFalse(isConflicting);
+    }
+
+    @Test
+    public void shouldReturnFalse_WhenBookingPeriodIsAfterRequestedPeriod(){
+        // Given
+        LocalDate requestedArrivalDate = LocalDate.of(2021, Month.JANUARY, 15);
+        LocalDate requestedDepartureDate = LocalDate.of(2021, Month.JANUARY, 20);
+        Booking booking = new Booking(LocalDate.of(2021, Month.JANUARY, 25),
+                LocalDate.of(2021, Month.JANUARY, 30));
 
         // When
         boolean isConflicting = booking.conflictWith(requestedArrivalDate, requestedDepartureDate);
