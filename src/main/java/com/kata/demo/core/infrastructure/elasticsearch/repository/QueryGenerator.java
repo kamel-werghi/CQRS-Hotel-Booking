@@ -4,7 +4,7 @@ import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 import org.springframework.data.elasticsearch.core.query.Query;
 
 public class QueryGenerator {
-    public static Query generateHotelSearchQuery(GeoPoint geoPoint, double distance, String unit){
+    public static Query generateHotelSearchQuery(GeoPoint geoPoint, Double distance, String unit){
         return null;
     }
 }

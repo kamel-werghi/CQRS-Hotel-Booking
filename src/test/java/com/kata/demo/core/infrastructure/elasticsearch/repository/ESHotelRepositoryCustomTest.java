@@ -37,13 +37,11 @@ public class ESHotelRepositoryCustomTest {
         GeoPoint geoPoint = new GeoPoint(48.8534, 2.3488);
         Double distance = 10D;
         String unit = "km";
-
         Query query = new CriteriaQuery(
                 new Criteria("location").within(geoPoint, distance.toString() + unit)
         );
         Sort sort = Sort.by(new GeoDistanceOrder("location", geoPoint).withUnit(unit));
         query.addSort(sort);
-
         ESHotel hotel = mock(ESHotel.class);
         SearchHits<ESHotel> searchHits = mock(SearchHits.class);
         SearchHit<ESHotel> searchHit = mock(SearchHit.class);
