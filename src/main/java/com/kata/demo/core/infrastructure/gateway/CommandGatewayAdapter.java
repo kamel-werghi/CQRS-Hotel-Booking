@@ -15,5 +15,6 @@ public class CommandGatewayAdapter implements CommandGateway {
 
     @Override
     public void send(Command command) {
+        applicationEventPublisher.publishEvent(command);
     }
 }
