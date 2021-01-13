@@ -1,6 +1,7 @@
 package com.kata.demo.core.infrastructure.mongodb.model;
 
 
+import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Coordinates;
 import com.kata.demo.core.domain.model.Hotel;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -23,6 +24,10 @@ public class MGHotel {
         this.name = name;
         this.coordinates = coordinates;
         this.rooms = new ArrayList<>();
+    }
+
+    public void addBooking(String roomId, Long roomVersion, Booking booking) {
+
     }
 
     public Hotel toModel(){

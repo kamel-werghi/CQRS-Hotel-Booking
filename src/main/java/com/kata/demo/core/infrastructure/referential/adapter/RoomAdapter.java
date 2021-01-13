@@ -10,6 +10,7 @@ import com.kata.demo.core.infrastructure.referential.repository.BookingRepositor
 import com.kata.demo.core.infrastructure.referential.repository.RoomRepository;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Component
@@ -22,6 +23,7 @@ public class RoomAdapter {
         this.bookingRepository = bookingRepository;
     }
 
+    @Transactional
     public Room addBooking(Booking booking) throws VersionMismatchException, RoomNotFoundException {
         Optional<MSRoom> room = roomRepository.findById(booking.getRoomId());
         if (room.isPresent()) {

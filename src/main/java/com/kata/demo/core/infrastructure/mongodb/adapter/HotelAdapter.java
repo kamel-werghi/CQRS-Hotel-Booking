@@ -1,6 +1,8 @@
 package com.kata.demo.core.infrastructure.mongodb.adapter;
 
+import com.kata.demo.common.exception.HotelNotFoundException;
 import com.kata.demo.common.util.GeoLocationUtil;
+import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Coordinates;
 import com.kata.demo.core.domain.model.Hotel;
 import com.kata.demo.core.domain.port.infrastructure.HotelDataGateway;
@@ -33,5 +35,9 @@ public class HotelAdapter implements HotelDataGateway {
                                 GeoLocationUtil.geoPointFromCoordinates(location), DISTANCE, UNIT));
         return mgHotelRepository.findAllById(hotelsWithin).stream()
                 .map(MGHotel::toModel).collect(Collectors.toList());
+    }
+
+    public Hotel addBooking(String hotelId, Booking booking) throws HotelNotFoundException{
+        return null;
     }
 }
