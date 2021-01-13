@@ -12,6 +12,6 @@ public class Booking {
     }
 
     public boolean conflictWith(LocalDate arrivalDate, LocalDate departureDate){
-        return false;
+        return this.arrivalDate.isBefore(departureDate) && this.departureDate.isAfter(arrivalDate);
     }
 }
