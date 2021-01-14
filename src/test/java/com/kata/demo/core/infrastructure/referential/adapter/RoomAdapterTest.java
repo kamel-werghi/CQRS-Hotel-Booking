@@ -40,7 +40,7 @@ public class RoomAdapterTest {
     public void addBookingToRoom_ShouldThrowsRoomNotFoundException_WhenRoomNotFound() throws RoomNotFoundException, VersionMismatchException {
         // Given
         when(roomRepository.findById("101")).thenReturn(Optional.empty());
-        Booking booking = new Booking(new BookingData());
+        Booking booking = new Booking(new BookingData("101", 0L));
 
         // When
         roomAdapter.addBooking(booking);

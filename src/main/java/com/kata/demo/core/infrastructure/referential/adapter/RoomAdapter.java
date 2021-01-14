@@ -5,7 +5,6 @@ import com.kata.demo.common.exception.VersionMismatchException;
 import com.kata.demo.core.domain.model.Booking;
 import com.kata.demo.core.domain.model.Room;
 import com.kata.demo.core.infrastructure.referential.model.MSBooking;
-import com.kata.demo.core.infrastructure.referential.model.MSRoom;
 import com.kata.demo.core.infrastructure.referential.repository.BookingRepository;
 import com.kata.demo.core.infrastructure.referential.repository.RoomRepository;
 import org.springframework.stereotype.Component;

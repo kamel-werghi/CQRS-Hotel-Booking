@@ -1,11 +1,12 @@
 package com.kata.demo.core.api.web.query.model;
 
-import com.kata.demo.core.api.web.query.model.WebHotel;
 import com.kata.demo.core.domain.model.Hotel;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebHotelTest {
