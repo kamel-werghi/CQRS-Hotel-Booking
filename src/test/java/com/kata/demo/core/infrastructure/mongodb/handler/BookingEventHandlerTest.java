@@ -2,15 +2,11 @@ package com.kata.demo.core.infrastructure.mongodb.handler;
 
 import com.kata.demo.common.exception.HotelNotFoundException;
 import com.kata.demo.common.exception.RoomNotFoundException;
-import com.kata.demo.common.exception.VersionMismatchException;
-import com.kata.demo.core.domain.coreapi.command.BookHotelRoomCommand;
 import com.kata.demo.core.domain.coreapi.event.HotelNotFoundEvent;
 import com.kata.demo.core.domain.coreapi.event.HotelRoomBookedEvent;
 import com.kata.demo.core.domain.coreapi.event.RoomNotFoundEvent;
-import com.kata.demo.core.domain.coreapi.event.RoomVersionMismatchEvent;
 import com.kata.demo.core.domain.dto.BookingData;
 import com.kata.demo.core.domain.model.Booking;
-import com.kata.demo.core.domain.model.Room;
 import com.kata.demo.core.domain.port.infrastructure.EventGateway;
 import com.kata.demo.core.infrastructure.mongodb.adapter.HotelAdapter;
 import com.kata.demo.core.infrastructure.mongodb.projector.BookingEventHandler;
@@ -22,7 +18,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BookingEventHandlerTest {
