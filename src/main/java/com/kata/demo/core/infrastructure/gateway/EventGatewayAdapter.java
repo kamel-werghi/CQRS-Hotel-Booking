@@ -14,6 +14,7 @@ public class EventGatewayAdapter implements EventGateway {
     }
 
     @Override
-    public void publish(Event events) {
+    public void publish(Event event) {
+        eventPublisher.publishEvent(event);
     }
 }
